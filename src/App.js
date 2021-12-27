@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import StartModal from './components/StartModal/StartModal';
+import PlayersPanel from './components/PlayersPanel/PlayersPanel';
+import GameBoard from './components/GameBoard/GameBoard';
 
 function App() {
+
+  const [amountOfPlayers, setAmountOfPlayers] = useState([]);
+
+  // document.onkeydown = function (e) {
+  //   if (e.keyCode === 116) {
+  //     return false;
+  //   }
+  // };
+
+  function handleAmountOfPlayers(amount) {
+    setAmountOfPlayers(Array(amount).fill(null));
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <StartModal handleAmountOfPlayers={handleAmountOfPlayers}/>
+      <PlayersPanel amounts={amountOfPlayers}/>
+      <GameBoard />
     </div>
   );
 }
