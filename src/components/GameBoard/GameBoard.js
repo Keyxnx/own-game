@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react';
-import { questions } from '../../utils/constants';
 import Categories from '../Categories/Categories';
 
-const GameBoard = () => {
-
+const GameBoard = ({ setPlayersPoints }) => {
     const boardStyle = {
         background: '#FAEDC6',
         height: '750px',
@@ -14,7 +11,7 @@ const GameBoard = () => {
 
     return (
         <div className="game-board" style={boardStyle}>
-            <Categories/>
+            <Categories setPlayersPoints={setPlayersPoints} />
         </div>
     );
 }

@@ -16,7 +16,7 @@ const Category = ({ title }) => {
 
     return (
         <div className="category" style={style}>
-            { title }
+            {title}
         </div>
     );
 }

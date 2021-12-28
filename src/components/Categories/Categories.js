@@ -1,36 +1,21 @@
-import { useEffect, useState } from 'react';
 import Category from '../Category/Category';
 import Fields from '../Fields/Fields';
 import { questions } from '../../utils/constants';
 
-const Categories = () => {
-
-    const [categories, setCategories] = useState([]);
-
-    useEffect(() => {
-        getCategories();
-    }, [])
-
-    function getCategories() {
-        let listOfCategories = [];
-        for (let key in questions) {
-            listOfCategories.push(key);
-        }
-        setCategories([...listOfCategories])
-    }
+const Categories = (props) => {
+    const categories = Object.keys(questions);
 
     return (
         <div className="categories" >
-            { categories.map((item, index) => {
-               for (let key in questions) {
+            {categories.map((category) => {
+                const categoryRow = questions[category];
                 return (
-                    <div style={{display: 'flex'}} key={index}>
-                        <Category title={item}/>
-                        <Fields amountOfFields={categories}/>
+                    <div style={{ display: 'flex' }} key={category}>
+                        <Category title={category} />
+                        <Fields categoryQuestions={categoryRow} {...props} />
                     </div>
                 )
-               }})
-            }
+            })}
         </div>
     );
 }

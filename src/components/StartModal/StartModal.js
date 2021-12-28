@@ -10,18 +10,17 @@ const StartModal = ({ handleAmountOfPlayers }) => {
     function startGame() {
 
         const conditionForStart = amountOfPlayers.current.value !== ''
-                               && amountOfPlayers.current.value !== '0';
+            && amountOfPlayers.current.value !== '0';
 
         if (conditionForStart) {
             setShow(false);
             handleAmountOfPlayers(+amountOfPlayers.current.value);
         }
     }
-    console.log('Hi')
 
     return (
         <div>
-           <Modal show={show}>
+            <Modal show={show}>
                 <Modal.Header closeButton>
                     <Modal.Title>Введите кол-во игроков! :)</Modal.Title>
                 </Modal.Header>
