@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import './App.css';
+
 import StartModal from './components/StartModal/StartModal';
 import PlayersPanel from './components/PlayersPanel/PlayersPanel';
 import GameBoard from './components/GameBoard/GameBoard';
 
 import { v4 as uuidv4 } from 'uuid';
+
+import './App.css';
 
 function App() {
   const [amountOfPlayers, setAmountOfPlayers] = useState([]);
@@ -17,6 +19,7 @@ function App() {
   //   }
   // };
 
+
   function handleAmountOfPlayers(amount) {
     const players = Array(amount).fill(undefined).map((_) => ({ id: uuidv4() }))
 
@@ -27,24 +30,22 @@ function App() {
     setActivePlayer(id);
   }
 
-  const handlePlayersPoints = (points) => {
+  const handlePlayersPoints = (points, isCorrect) => {
 
     setPlayersPoints(prevPlayersPoints => {
-      const activePlayerPoints = prevPlayersPoints[activePlayer] ? prevPlayersPoints[activePlayer] + points : points;
+      const activePlayerPoints = prevPlayersPoints[activePlayer] ? prevPlayersPoints[activePlayer] : 0;
       return {
         ...prevPlayersPoints,
-        [activePlayer]: activePlayerPoints
+        [activePlayer]: isCorrect ? activePlayerPoints + points : activePlayerPoints - points
       }
     });
   }
-
-  console.log(playersPoints, activePlayer)
 
   return (
     <div className="App">
       <StartModal handleAmountOfPlayers={handleAmountOfPlayers} />
       <PlayersPanel amounts={amountOfPlayers} handleActivePlayer={handleActivePlayer} activePlayer={activePlayer} points={playersPoints} />
-      <GameBoard setPlayersPoints={handlePlayersPoints} />
+      <GameBoard setPlayersPoints={handlePlayersPoints}/>
     </div>
   );
 }

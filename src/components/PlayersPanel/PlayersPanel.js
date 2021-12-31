@@ -12,7 +12,7 @@ const PlayersPanel = ({ amounts, handleActivePlayer, activePlayer, points }) => 
         bottom: '15px',
         left: '50%',
         width: '90%',
-        height: '150px',
+        height: 'auto',
         transform: 'translateX(-50%)',
         display: 'flex',
         justifyContent: 'space-between'
@@ -20,7 +20,7 @@ const PlayersPanel = ({ amounts, handleActivePlayer, activePlayer, points }) => 
 
     return (
         <div className="player-bar" style={barsStyle}>
-            {amounts.map((item, index) => {
+            {amounts.map(item => {
                 return <PlayerBar item={item} key={item.id} randomAvatar={getRandomOptions} handleActivePlayer={handleActivePlayer} activePlayer={activePlayer} points={points} />
             })}
         </div>

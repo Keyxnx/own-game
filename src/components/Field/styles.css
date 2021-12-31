@@ -1,7 +1,7 @@
 .inActiveField {
     pointer-events: none;
-    opacity: 0.5;
-    background-color: lightgray
+    opacity: 0.4;
+    background-color: #FFF7E0;
 }
 
 .fieldButton {
@@ -9,4 +9,5 @@
     height: 100%;
     border: none;
     background: transparent;
+    font-weight: bold;
 }

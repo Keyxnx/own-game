@@ -1,0 +1,7 @@
+.categories .category-group .category {
+    border: 2px solid black;
+}
+
+.categories .category-group:not(:last-child) .category {
+    border-bottom: none;
+}

@@ -1,14 +1,13 @@
-import React from 'react';
+import './styles.css';
 
 const Category = ({ title }) => {
 
     const style = {
         width: '200px',
-        height: '65px',
+        height: 'calc(650px  / 10)',
         fontSize: '18px',
         fontWeight: 'bold',
         textTransform: 'uppercase',
-        border: '2px solid black',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
