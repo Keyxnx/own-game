@@ -1,20 +1,18 @@
-import { useState, useEffect } from 'react';
-import { questions } from '../../utils/constants';
 import Categories from '../Categories/Categories';
 
-const GameBoard = () => {
-
+const GameBoard = ({ setPlayersPoints, setIsCorrectAnswer }) => {
     const boardStyle = {
-        background: '#FAEDC6',
-        height: '750px',
+        textShadow: '0 0 5px #fff',
+        background: '#FFF7E0',
+        height: '650px',
         width: '90%',
-        margin: '25px auto 0',
+        margin: '75px auto 0',
         borderRadius: '10px'
     }
 
     return (
         <div className="game-board" style={boardStyle}>
-            <Categories/>
+            <Categories setPlayersPoints={setPlayersPoints} setIsCorrectAnswer={setIsCorrectAnswer}/>
         </div>
     );
 }

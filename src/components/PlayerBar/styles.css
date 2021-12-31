@@ -1,0 +1,18 @@
+.activePlayer {
+    border: 5px solid #FF5C58;
+}
+
+.player {
+    position: relative;
+    background: #F3C892;
+    height: 200px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    align-items: center;
+    padding: 5px;
+    font-weight: bold;
+    border-radius: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}

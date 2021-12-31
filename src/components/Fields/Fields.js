@@ -1,48 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+
 import Field from '../Field/Field';
-import { questions, points } from '../../utils/constants';
 
-const Fields = ({amountOfFields}) => {
+const style = {
+    width: '80%',
+    height: '65px',
+    margin: '0 auto',
+    background: '#FFF7E0',
+    display: 'flex'
+}
 
-    const [amountOfQuestions, setAmountOfQuestions] = useState(Array(amountOfFields.length).fill(undefined));
-    // const [quest, setQuest] = useState([]);
-    // const [answr, setAnswr] = useState([]);
+const Fields = ({ categoryQuestions, setPlayersPoints, onResolveQuestion }) => {
+    const [inActiveIds, setInActiveIds] = useState([]);
 
-    useEffect(() => {
-        uuu();
-    }, []);
 
-    function uuu() {
-        for (let key in questions) {
-            const categoryQuestions = [];
-            const categoryAnswers = [];
-            questions[key].map(item => {
+    const resolveQuestion = (id, points, isCorrect) => {
 
-                categoryQuestions.push(item.question);
-                categoryAnswers.push(item.answer);
-            })
-            
-            // setQuest([...categoryQuestions])
-            // setAnswr([...categoryAnswers])
-            return (
-                <Field question={[...categoryQuestions]} answers={[...categoryAnswers]} key={Math.random()} />
-            )
+        if (id) {
+            setInActiveIds(prevIds => ([
+                ...prevIds,
+                id
+            ]));
+            setPlayersPoints(points, isCorrect);
         }
     }
 
-    const style = {
-        width: '80%',
-        height: '65px',
-        background: 'green',
-        margin: '0 auto',
-        background: '#FAEDC6',
-        border: '1px solid black',
-        display: 'flex'
-    }
+
     return (
         <div className="fields" style={style}>
-            { amountOfQuestions.map((item, index) => {
-                uuu();
+            {categoryQuestions.map(category => {
+                return <Field key={category.id} {...category} resolveQuestion={resolveQuestion} isInActive={inActiveIds.includes(category.id)} onResolveQuestion={onResolveQuestion} />
             })}
         </div>
     );

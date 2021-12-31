@@ -1,17 +1,52 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import cx from 'classnames';
 import { getRandomOptions } from '../../utils/bigHeads';
 import { BigHead } from "@bigheads/core";
 
 import EditModal from '../EditModal/EditModal';
 import { Button } from 'react-bootstrap';
 
+import './styles.css'
 
 
-const PlayerBar = ({ randomAvatar}) => {
+const style = {
+    boxSizing: 'border-box',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'column',
+    background: 'linear-gradient(to bottom, #71DFE7 0, #71DFE7 65px, #009DAE 67px 200px)'
+}
+
+const btnStyle = {
+    width: '20px',
+    height: '25px',
+    borderRadius: '50%'
+}
+
+const avatarStyle = {
+    background: '#ffffff',
+    height: '90px',
+    width: '75px',
+    borderRadius: '35%'
+}
+
+const nameStyle = {
+    fontSize: '22px'
+}
+
+const pointsStyle = {
+    fontSize: '30px',
+    textShadow: '0 0 1.5px black'
+}
+
+
+const PlayerBar = ({ item: { id }, randomAvatar, handleActivePlayer, activePlayer, points: playerPoints }) => {
     const [avatar, setAvatar] = useState(randomAvatar);
     const [showModal, setShowModal] = useState(false)
     const [name, setName] = useState(undefined);
-    const [points, setPoints] = useState(undefined);
+    const [points, setPoints] = useState(playerPoints[id]);
+
 
     const toggleModal = () => setShowModal(!showModal);
 
@@ -21,67 +56,27 @@ const PlayerBar = ({ randomAvatar}) => {
         setPoints(points);
     }
 
-    const style = {
-        position: 'relative',
-        background: '#F3C892',
-        height: 'auto',
-        width: '150px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        paddingTop: '20px',
-        fontWeight: 'bold',
-        borderRadius: '15px',
-        border: '3px solid aquamarine',
-        boxShadow: 'rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset'
-    }
+    useEffect(() => {
+        setPoints(playerPoints[id])
+    }, [playerPoints])
 
-    const editBtn = {
-        position: 'absolute',
-        top: '5px',
-        right: '10px',
-        height: '10px',
-        width: '5px',
-        background: 'yellow',
-        border: 'none',
-        outline: 'none'
-    }
+    const playerClass = cx('player', {
+        activePlayer: id === activePlayer
+    })
 
-    const avatarStyle = {
-        position: 'absolute',
-        top: '10px',
-        left: '5px',
-        background: '#ffffff',
-        height: '90px',
-        width: '75px',
-        borderRadius: '30%'
-    }
-
-    const nameStyle = {
-        position: 'absolute',
-        bottom: '5px',
-        fontSize: '25px'
-    }
-
-    const pointsStyle = {
-        position: 'absolute',
-        top: '50px',
-        left: '82px',
-        fontSize: '25px'
-    }
 
     return (
-        <div  style={style}>
+        <div className={playerClass} style={style} onClick={() => handleActivePlayer(id)}>
             <div style={avatarStyle}>
-                <BigHead {...avatar}/>
+                <BigHead {...avatar} />
             </div>
-            <div className="player-name" style={nameStyle}>{ name }</div>
-            <div className="player-points" style={pointsStyle}>{ points }</div>
-            <Button
-                style={{...editBtn, background: 'green', right: '38px'}} 
-                onClick={() => setAvatar(getRandomOptions)}></Button>
-            <Button className="edit-player" onClick={() => toggleModal()} style={editBtn}></Button>
-            <EditModal onSave={handlePlayerInfo} showEditModal={showModal} amountOfPoints={points} playerName={name}/>
+            <div className="player-name" style={nameStyle}>{name}</div>
+            <div className="player-points" style={pointsStyle}>{points}</div>
+            <div style={{display: 'flex', justifyContent: 'space-around', width: '80%', padding: '0 20px'}}>
+                <Button onClick={() => setAvatar(getRandomOptions)} style={{...btnStyle,background: '#FBFFE2', border: 'none'}}></Button>
+                <Button className="edit-player" onClick={() => toggleModal()} style={{...btnStyle,background: '#FFCC1D', border: 'none'}}></Button>
+            </div>
+            <EditModal onSave={handlePlayerInfo} onHide={() => setShowModal(false)} showEditModal={showModal} amountOfPoints={points} playerName={name} />
         </div>
     );
 }
